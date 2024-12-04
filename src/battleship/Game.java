@@ -1,12 +1,16 @@
 package battleship;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
+
 
 public class Game {
 
+	private static JFrame frame;
+	private static PanellMatriu panellMatriu;
+	
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-
         // Matriz del inicio 
         char[][] M1 = new char[5][5];
         for (int i = 0; i < M1.length; i++) {
@@ -14,6 +18,21 @@ public class Game {
                 M1[i][j] = '*';
             }
         }
+
+        // Crear la finestra principal
+        frame = new JFrame("Battleship");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(265, 290);
+        frame.setAlwaysOnTop(true);
+
+        // Inicialitzar el panell amb la matriu inicial
+        panellMatriu = new PanellMatriu(M1);
+        frame.add(panellMatriu);
+
+        // Mostrar la finestra
+        frame.setVisible(true);
+
+        Scanner in = new Scanner(System.in);
 
         // Ubicación del barco (de 1 a 5)
         int ubibarcofila1 = (int) (Math.random() * 5) + 1;
@@ -26,6 +45,9 @@ public class Game {
             ubibarcocolumna2 = (int) (Math.random() * 5) + 1;
         } while (ubibarcofila1 == ubibarcofila2 && ubibarcocolumna1 == ubibarcocolumna2);
 
+        System.out.println("Els baixell 1 s'ubica a la posició ("+ubibarcofila1+","+ubibarcocolumna1+")");
+        System.out.println("Els baixell 2 s'ubica a la posició ("+ubibarcofila2+","+ubibarcocolumna2+")");
+        
         // Condición del juego
         int contadorbarcos = 2;
 
@@ -41,6 +63,8 @@ public class Game {
                 }
                 System.out.println("");
             }
+
+            PintarGraella(M1);
 
             int filajugador = 0;
             // Pedir el número 
@@ -115,8 +139,64 @@ public class Game {
             }
             System.out.println("");
         }
-        
+
+        PintarGraella(M1);
+
         in.close();
-    
     }
+    
+    public static void PintarGraella(char[][] novaMatriu) {
+        panellMatriu.setMatriu(novaMatriu);
+        panellMatriu.repaint();
+    }
+
+    // Panell personalitzat per dibuixar la matriu
+    static class PanellMatriu extends JPanel {
+        private char[][] matriu;
+
+        public PanellMatriu(char[][] matriu) {
+            this.matriu = matriu;
+        }
+
+        public void setMatriu(char[][] matriu) {
+            this.matriu = matriu;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            int midaQuadrat = 50;
+
+            // Recórrer la matriu i dibuixar cada quadrat
+            for (int i = 0; i < matriu.length; i++) {
+                for (int j = 0; j < matriu[i].length; j++) {
+                    // Determinar el color segons el valor de la matriu
+                    switch (matriu[i][j]) {
+                        case '*':
+                            g.setColor(Color.WHITE);
+                            break;
+                        case 'V':
+                            g.setColor(Color.BLACK);
+                            break;
+                        case 'A':
+                            g.setColor(new Color(70, 130, 180)); // Blau-mar
+                            break;
+                        default:
+                            g.setColor(Color.GRAY); // Per a valors inesperats
+                    }
+
+                    // Dibuixar el fons del quadrat
+                    int x = j * midaQuadrat;
+                    int y = i * midaQuadrat;
+                    g.fillRect(x, y, midaQuadrat, midaQuadrat);
+
+                    // Dibuixar el marc negre del quadrat
+                    g.setColor(Color.BLACK);
+                    g.drawRect(x, y, midaQuadrat, midaQuadrat);
+                }
+            }
+        }
+   }
+    
+    
 }
