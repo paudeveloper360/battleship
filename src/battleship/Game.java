@@ -68,31 +68,31 @@ public class Game {
 
             int filajugador = 0;
             // Pedir el número 
-            System.out.println("Introduce la fila (1-5): ");
+            System.out.println("Introdueix la fila (1-5): ");
 
             while (filajugador == 0) {
                 if (in.hasNextInt()) {
                     filajugador = in.nextInt();
                 } else {
                     in.next();
-                    System.out.println("Tiene que ser un entero entre el 1 y el 5:");
+                    System.out.println("Ha de ser un nombre sencer entre l'1 i el 5:");
                 }
                 in.nextLine();
             }
 
             //Verificar el rango de números 
             while (filajugador < 1 || filajugador > 5) {
-                System.out.println("Mal. Ingresa un número de fila correcto dentro del rango (1-5).");
+                System.out.println("Error. Introdueix un nombre de fila correcte dins del rang (1-5).");
                 filajugador = in.nextInt();
             }
 
             //Pedir la letra
-            System.out.println("Introduce la columna (A-E): ");
+            System.out.println("Introdueix la columna (A-E): ");
             String columnajugador = in.next().toUpperCase();
             System.out.println(columnajugador);
             //Verificar el rando de letras<<<
             while (!(columnajugador.equals("A") || columnajugador.equals("B") || columnajugador.equals("C") || columnajugador.equals("D") || columnajugador.equals("E") )) {
-                System.out.println("Mal. Ingresa una letra de columna correcta dentro del rango (A-E).");
+                System.out.println("Error. Introdueix una lletra de columna correcta dins del rang (A-E).");
                 columnajugador = in.next().toUpperCase();
             }
            
@@ -121,11 +121,11 @@ public class Game {
             // Validar entrada del jugador
             if ((filajugador == ubibarcofila1 && letra == ubibarcocolumna1)
                     || (filajugador == ubibarcofila2 && letra == ubibarcocolumna2)) {
-                System.out.println("¡Has acertado un barco!");
+                System.out.println("¡Has tocat un baixell!");
                 M1[filajugador - 1][letra - 1] = 'V';
                 contadorbarcos--;
             } else {
-                System.out.println("¡Agua!");
+                System.out.println("¡Aigua!");
                 M1[filajugador - 1][letra - 1] = 'A';
             }
         }
