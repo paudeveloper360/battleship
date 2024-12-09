@@ -190,6 +190,16 @@ public class Game {
                     int y = i * midaQuadrat;
                     g.fillRect(x, y, midaQuadrat, midaQuadrat);
 
+                    if (matriu[i][j] == 'A') {
+                        g.setColor(Color.WHITE);
+                        for (int k = 0; k < 5; k++) {
+                            int offsetY = y + (k * 5); // Variar verticalment per crear l'efecte ondulat
+                            g.drawLine(x, offsetY + 10, x + midaQuadrat, offsetY + 10); // Linia ondulada horitzontal
+                            g.drawLine(x, offsetY + 15, x + midaQuadrat, offsetY + 15);
+                            g.drawLine(x, offsetY + 20, x + midaQuadrat, offsetY + 20);
+                        }
+                    }
+
                     // Dibuixar el marc negre del quadrat
                     g.setColor(Color.BLACK);
                     g.drawRect(x, y, midaQuadrat, midaQuadrat);
