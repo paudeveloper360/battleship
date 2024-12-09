@@ -193,8 +193,8 @@ public class Game {
                     if (matriu[i][j] == 'A') {
                         g.setColor(Color.WHITE);
                         for (int k = 0; k < 5; k++) {
-                            int offsetY = y + (k * 5); // Variar verticalment per crear l'efecte ondulat
-                            g.drawLine(x, offsetY + 10, x + midaQuadrat, offsetY + 10); // Linia ondulada horitzontal
+                            int offsetY = y + (k * 5);
+                            g.drawLine(x, offsetY + 10, x + midaQuadrat, offsetY + 10);
                             g.drawLine(x, offsetY + 15, x + midaQuadrat, offsetY + 15);
                             g.drawLine(x, offsetY + 20, x + midaQuadrat, offsetY + 20);
                         }
